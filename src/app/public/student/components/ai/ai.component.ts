@@ -15,10 +15,9 @@ interface Message {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './ai.component.html',
-  styleUrl: './ai.component.scss'
+  styleUrl: './ai.component.scss',
 })
 export class AiComponent implements OnInit {
-
   messages: Message[] = [];
   newMessage: string = '';
   userId: number = 0;
@@ -41,61 +40,60 @@ export class AiComponent implements OnInit {
           sender: msg.is_ai ? 'AI' : 'You',
           text: msg.message,
           time: new Date(msg.created_at).toLocaleTimeString(),
-          isUser: !msg.is_ai
+          isUser: !msg.is_ai,
         }));
       },
       error: (err) => {
         console.error('Error loading chat history:', err);
-      }
+      },
     });
   }
 
-  sendMessage(): void { 
-  if (!this.newMessage.trim()) return; 
+  sendMessage(): void {
+    if (!this.newMessage.trim()) return;
 
-  const payload = { user_id: this.userId, message: this.newMessage }; 
+    const payload = { user_id: this.userId, message: this.newMessage };
 
-  // Add user message immediately 
-  this.messages.push({ 
-    sender: 'You', 
-    text: this.newMessage, 
-    time: new Date().toLocaleTimeString(), 
-    isUser: true 
-  }); 
+    // Add user message immediately
+    this.messages.push({
+      sender: 'You',
+      text: this.newMessage,
+      time: new Date().toLocaleTimeString(),
+      isUser: true,
+    });
 
-  const sendingMsg = this.newMessage; 
-  this.newMessage = ''; 
+    const sendingMsg = this.newMessage;
+    this.newMessage = '';
 
-  // Add temporary loading message 
-  this.messages.push({ 
-    sender: 'AI', 
-    text: 'Typing...', 
-    time: '', 
-    isUser: false 
-  }); 
+    // Add temporary loading message
+    this.messages.push({
+      sender: 'AI',
+      text: 'Typing...',
+      time: '',
+      isUser: false,
+    });
 
-  this.loading = true;
+    this.loading = true;
 
-  this.aiService.sendMessage(payload).subscribe({ 
-    next: (res) => { 
-      // Remove temporary loading message
-      this.messages.pop(); 
+    this.aiService.sendMessage(payload).subscribe({
+      next: (res) => {
+        // Remove temporary loading message
+        this.messages.pop();
 
-      this.messages.push({ 
-        sender: 'AI', 
-        text: res.data.ai_response.message, 
-        time: new Date(res.data.ai_response.created_at).toLocaleTimeString(), 
-        isUser: false 
-      }); 
+        this.messages.push({
+          sender: 'AI',
+          text: res.data.ai_response.message,
+          time: new Date(res.data.ai_response.created_at).toLocaleTimeString(),
+          isUser: false,
+        });
 
-      this.loading = false;
-    }, 
-    error: (err) => { 
-      console.error('Error sending message:', err); 
-      this.messages = this.messages.filter(m => m.text !== sendingMsg); 
-      this.loading = false;
-    } 
-  }); 
-}
-
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error sending message:', err);
+        this.messages = this.messages.filter((m) => m.text !== sendingMsg);
+        this.loading = false;
+      },
+    });
+  }
 }

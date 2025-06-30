@@ -1,4 +1,4 @@
 export const environment = {
-    // url: process.env["NG_APP_BASE_URL"],
-    url: "http://127.0.0.1:8000/api"
+  // url: process.env["NG_APP_BASE_URL"],
+  url: 'https://aidb-production-7aa2.up.railway.app/api',
 };

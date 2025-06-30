@@ -2,16 +2,28 @@
   <h2 class="text-xl font-semibold mb-4">Club Chat Room</h2>
 
   <div class="bg-white p-4 rounded shadow mb-4 min-h-[400px]">
-    <div *ngFor="let msg of messages.reverse()" class="mb-3 flex"
-         [ngClass]="{'justify-end': msg.sender_id === studentId, 'justify-start': msg.sender_id !== studentId}">
+    <div
+      *ngFor="let msg of messages.reverse()"
+      class="mb-3 flex"
+      [ngClass]="{
+        'justify-end': msg.sender_id === studentId,
+        'justify-start': msg.sender_id !== studentId
+      }"
+    >
       <!-- رسالتي -->
-      <div *ngIf="msg.sender.id === studentId" class="p-2 rounded bg-blue-500 text-white max-w-[60%]">
+      <div
+        *ngIf="msg.sender.id === studentId"
+        class="p-2 rounded bg-blue-500 text-white max-w-[60%]"
+      >
         <p class="text-sm">{{ msg.message }}</p>
         <p class="text-xs text-white text-right">You</p>
       </div>
 
       <!-- رسائل الآخرين -->
-      <div *ngIf="msg.sender.id !== studentId" class="p-2 rounded bg-gray-200 max-w-[60%]">
+      <div
+        *ngIf="msg.sender.id !== studentId"
+        class="p-2 rounded bg-gray-200 max-w-[60%]"
+      >
         <p class="font-semibold text-sm mb-1">Student: {{ msg.sender.name }}</p>
         <p class="text-sm">{{ msg.message }}</p>
       </div>
@@ -19,7 +31,15 @@
   </div>
 
   <div class="flex gap-2">
-    <input [(ngModel)]="newMessage" class="flex-1 border rounded p-2" type="text" placeholder="Type your message..." />
-    <button (click)="sendMessage()" class="bg-blue-600 text-white px-4 rounded">Send</button>
+    <input
+      [(ngModel)]="newMessage"
+      class="flex-1 border rounded p-2"
+      type="text"
+      placeholder="Type your message..."
+      (keydown.enter)="sendMessage()"
+    />
+    <button (click)="sendMessage()" class="bg-blue-600 text-white px-4 rounded">
+      Send
+    </button>
   </div>
 </div>

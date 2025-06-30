@@ -7,20 +7,27 @@
   </div>
 
   <div *ngIf="!isLoading">
-
     <!-- Cards -->
-    <div class="grid grid-cols-3 gap-6 mt-6">
-      <div class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]">
-        <h2 class="text-xl font-semibold text-[#2C2F66]">Pending Assignments</h2>
+    <div class="grid lg:grid-cols-3 gap-6 mt-6 grid-cols-1">
+      <div
+        class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]"
+      >
+        <h2 class="text-xl font-semibold text-[#2C2F66]">
+          Pending Assignments
+        </h2>
         <p class="text-3xl font-bold">{{ pendingAssignments }}</p>
       </div>
 
-      <div class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]">
+      <div
+        class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]"
+      >
         <h2 class="text-xl font-semibold text-[#2C2F66]">Enrolled Students</h2>
         <p class="text-3xl font-bold">{{ totalStudents }}</p>
       </div>
 
-      <div class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]">
+      <div
+        class="p-6 bg-white rounded-xl shadow-md border-l-4 border-[#7F55E0]"
+      >
         <h2 class="text-xl font-semibold text-[#2C2F66]">My Courses</h2>
         <p class="text-3xl font-bold">{{ totalCourses }}</p>
       </div>
@@ -28,9 +35,16 @@
 
     <!-- التفاصيل الإضافية -->
     <div class="mt-8 p-6 bg-white rounded-xl shadow-md">
-      <h2 class="text-xl font-semibold text-[#2C2F66]">Students Enrolled</h2>
-      <table class="min-w-full mt-4 text-left">
-        <thead><tr><th>Student Name</th><th>Course</th></tr></thead>
+      <h2 class="text-xl font-semibold text-[#2C2F66] mb-6">
+        Students Enrolled
+      </h2>
+      <table class="min-w-full mt-4 text-left max-lg:hidden">
+        <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Course</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let student of students">
             <td>{{ student.student_name }}</td>
@@ -38,21 +52,53 @@
           </tr>
         </tbody>
       </table>
+      <div
+        *ngFor="let student of students"
+        class="rounded-2xl shadow-md p-2 bg-white border border-gray-200 my-6 md:hidden"
+      >
+        <h3 class="text-lg font-semibold text-primary-600 mb-2">
+          {{ student.student_name }}
+        </h3>
+        <h5 class="text-purple-600 text-base">{{ student.course_name }}</h5>
+      </div>
     </div>
 
     <div class="mt-8 p-6 bg-white rounded-xl shadow-md">
       <h2 class="text-xl font-semibold text-[#2C2F66]">Pending Reviews</h2>
-      <table class="min-w-full mt-4 text-left">
-        <thead><tr><th>Assignment</th><th>Student</th><th>Submitted At</th></tr></thead>
+      <table class="min-w-full mt-4 text-left max-lg:hidden">
+        <thead>
+          <tr>
+            <th>Assignment</th>
+            <th>Student</th>
+            <th>Submitted At</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let submission of unreviewedAssignments">
             <td>{{ submission.assignment_title }}</td>
             <td>{{ submission.student_name }}</td>
-            <td>{{ submission.submitted_at | date:'short' }}</td>
+            <td>{{ submission.submitted_at | date : "short" }}</td>
           </tr>
         </tbody>
       </table>
+      <div class="grid gap-4 mt-4 lg:grid-cols-2 lg:grid-cols-3 lg:hidden">
+        <div
+          *ngFor="let submission of unreviewedAssignments"
+          class="rounded-2xl shadow-md p-4 bg-white border border-gray-200"
+        >
+          <h3 class="text-lg font-semibold text-primary-600 mb-1">
+            {{ submission.assignment_title }}
+          </h3>
+          <p class="text-gray-700">
+            <span class="font-medium text-gray-800">Student:</span>
+            {{ submission.student_name }}
+          </p>
+          <p class="text-gray-700">
+            <span class="font-medium text-gray-800">Submitted:</span>
+            {{ submission.submitted_at | date : "short" }}
+          </p>
+        </div>
+      </div>
     </div>
-
   </div>
 </div>

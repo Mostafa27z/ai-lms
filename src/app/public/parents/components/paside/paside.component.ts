@@ -27,7 +27,7 @@ export class PasideComponent {
   }
 
   private updateSidebarState(width: number) {
-    this.isMobile = width < 768; // Tailwind md breakpoint
+    this.isMobile = width < 1024; // Tailwind md breakpoint
     if (this.isMobile) {
       this.sidebarOpen = false;
     } else {

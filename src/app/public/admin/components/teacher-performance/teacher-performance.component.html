@@ -1,9 +1,8 @@
 <div class="p-6 bg-gray-100 min-h-screen">
-
   <h2 class="text-2xl font-bold mb-6">Teachers Performance</h2>
 
   <div class="bg-white rounded-xl shadow p-4">
-    <table class="w-full table-auto text-center">
+    <table class="w-full table-auto text-center max-lg:hidden">
       <thead>
         <tr class="bg-[#2C2F66] text-white">
           <th class="p-3">Teacher</th>
@@ -25,6 +24,40 @@
         </tr>
       </tbody>
     </table>
-  </div>
+    <div class="grid gap-4 mt-4 md:grid-cols-2 lg:grid-cols-3">
+      <div
+        *ngFor="let teacher of teachersData"
+        class="rounded-2xl shadow-md p-4 bg-white border border-gray-200 lg:hidden"
+      >
+        <h3 class="text-lg font-semibold text-[#2C2F66] mb-2">
+          {{ teacher.name }}
+        </h3>
 
+        <ul class="text-gray-700 space-y-1">
+          <li>
+            <span class="font-medium text-gray-800">Courses:</span>
+            {{ teacher.totalCourses }}
+          </li>
+          <li>
+            <span class="font-medium text-gray-800">Lessons:</span>
+            {{ teacher.totalLessons }}
+          </li>
+          <li>
+            <span class="font-medium text-gray-800">Pending Enrollments:</span>
+            {{ teacher.pendingEnrollments }}
+          </li>
+          <li>
+            <span class="font-medium text-gray-800">Reviewed Assignments:</span>
+            {{ teacher.reviewedAssignments }}
+          </li>
+          <li>
+            <span class="font-medium text-gray-800"
+              >Not Reviewed Assignments:</span
+            >
+            {{ teacher.unReviewedAssignments }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
